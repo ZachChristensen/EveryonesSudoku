@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Colours:
+https://color.adobe.com/create/color-wheel/?base=2&rule=Shades&selected=0&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.407327995988977,0.6127450980392157,0.2026131949086772,0.2411381736254744,0.36274509803921573,0.11994701138593691,0.5735178183524796,0.8627450980392157,0.28527937843141754,0.6067557828251802,0.9127450980392158,0.3018126151359656,0.5070418894070786,0.7627450980392158,0.2522129050223214&swatchOrder=0,1,2,3,4
+-->
+<resources>
+    <color name="colorPrimary">#92DC49</color>
+    <color name="colorPrimaryDark">#689C34</color>
+    <color name="colorAccent">#9BE94D</color>
+</resources>
