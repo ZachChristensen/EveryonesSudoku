@@ -1,5 +1,6 @@
 package zach.christensen.everyonessudoku;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,9 +10,108 @@ import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class SudokuGame9x9 extends AppCompatActivity {
     boolean isPaused = false;
     int selectedIndex;
+    boolean isSelectedDark;
+    Button selectedButton;
+    private static final int[] GRIDBUTTONS = {
+            R.id.button0,
+            R.id.button1,
+            R.id.button2,
+            R.id.button3,
+            R.id.button4,
+            R.id.button5,
+            R.id.button6,
+            R.id.button7,
+            R.id.button8,
+            R.id.button9,
+            R.id.button10,
+            R.id.button11,
+            R.id.button12,
+            R.id.button13,
+            R.id.button14,
+            R.id.button15,
+            R.id.button16,
+            R.id.button17,
+            R.id.button18,
+            R.id.button19,
+            R.id.button20,
+            R.id.button21,
+            R.id.button22,
+            R.id.button23,
+            R.id.button24,
+            R.id.button25,
+            R.id.button26,
+            R.id.button27,
+            R.id.button28,
+            R.id.button29,
+            R.id.button30,
+            R.id.button31,
+            R.id.button32,
+            R.id.button33,
+            R.id.button34,
+            R.id.button35,
+            R.id.button36,
+            R.id.button37,
+            R.id.button38,
+            R.id.button39,
+            R.id.button40,
+            R.id.button41,
+            R.id.button42,
+            R.id.button43,
+            R.id.button44,
+            R.id.button45,
+            R.id.button46,
+            R.id.button47,
+            R.id.button48,
+            R.id.button49,
+            R.id.button50,
+            R.id.button51,
+            R.id.button52,
+            R.id.button53,
+            R.id.button54,
+            R.id.button55,
+            R.id.button56,
+            R.id.button57,
+            R.id.button58,
+            R.id.button59,
+            R.id.button60,
+            R.id.button61,
+            R.id.button62,
+            R.id.button63,
+            R.id.button64,
+            R.id.button65,
+            R.id.button66,
+            R.id.button67,
+            R.id.button68,
+            R.id.button69,
+            R.id.button70,
+            R.id.button71,
+            R.id.button72,
+            R.id.button73,
+            R.id.button74,
+            R.id.button75,
+            R.id.button76,
+            R.id.button77,
+            R.id.button78,
+            R.id.button79,
+            R.id.button80
+    };
+
+    private final static int[] SETTERBUTTONS = {
+            R.id.btn1,
+            R.id.btn2,
+            R.id.btn3,
+            R.id.btn4,
+            R.id.btn5,
+            R.id.btn6,
+            R.id.btn7,
+            R.id.btn8,
+            R.id.btn9,
+    };
 
     //Timer Objects
     TextView timerTextView;
@@ -43,6 +143,7 @@ public class SudokuGame9x9 extends AppCompatActivity {
         //Initialise Screen
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         setButtons();
+        setGrid();
 
         //Start Timer
         timerHandler.postDelayed(timerRunnable, 0);
@@ -65,16 +166,24 @@ public class SudokuGame9x9 extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         timerHandler.removeCallbacks(timerRunnable);
-        Button b = (Button)findViewById(R.id.button);
-        b.setText("start");
     }
 
+    private void resetSelectedCell(){
+        if (isSelectedDark){
+            selectedButton.setBackgroundResource(R.drawable.grid_button_dark);
+        }
+        else{
+            selectedButton.setBackgroundResource(R.drawable.grid_button);
+        }
+    }
 
     private void setButtons(){
-        Button btnReturn = (Button)findViewById(R.id.btnReturn);
-        assert btnReturn != null;
-        btnReturn.setOnClickListener(new View.OnClickListener(){
+
+        Button btnUndo = (Button)findViewById(R.id.btnUndo);
+        assert btnUndo != null;
+        btnUndo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
+                //TODO
                 SudokuGame9x9.this.finish();
             }
         });
@@ -95,6 +204,52 @@ public class SudokuGame9x9 extends AppCompatActivity {
             }
         });
 
+        //Setter Buttons
+        for (int b : SETTERBUTTONS){
+            Button btn = (Button)findViewById(b);
+            assert btn != null;
+            btn.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Button clickedBtn = (Button)v;
+                    if (selectedButton != null){
+                        changeCell(Integer.parseInt(clickedBtn.getText().toString()));
+                    }
+                }
+            });
+        }
+    }
+
+    private void setGrid(){
+        for (int b : GRIDBUTTONS){
+            Button btn = (Button)findViewById(b);
+            assert btn != null;
+            btn.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Button clickedBtn = (Button)v;
+                    if (selectedButton != null){
+                        selectedButton.setBackgroundResource(R.drawable.grid_button);
+                        if (selectedButton == clickedBtn){
+                            selectedButton = null;
+                            return;
+                        }
+                    }
+                    selectedButton = clickedBtn;
+                    //IS IT DARK?
+                    selectedButton.setBackgroundResource(R.drawable.grid_button_selected);
+
+                }
+            });
+        }
+    }
+
+    private void changeCell(int newNum){
+        outputToast("CHANGE ON!");
+        if (selectedButton == null){
+            return;
+        }
+        selectedButton.setText(Integer.toString(newNum));
+        selectedButton.setBackgroundResource(R.drawable.grid_button);
+        selectedButton = null;
     }
 
     protected void outputToast(String output){
