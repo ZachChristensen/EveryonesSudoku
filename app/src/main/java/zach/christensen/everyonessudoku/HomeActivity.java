@@ -23,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setButtons(){
         Button nine = (Button)findViewById(R.id.btn9x9);
+        assert nine != null;
         nine.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 Intent myIntent = new Intent(HomeActivity.this, SudokuGame9x9.class);

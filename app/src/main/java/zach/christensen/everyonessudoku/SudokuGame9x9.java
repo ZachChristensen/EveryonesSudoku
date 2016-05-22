@@ -1,19 +1,24 @@
 package zach.christensen.everyonessudoku;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import zach.christensen.everyonessudoku.Model.Controller;
 import java.util.ArrayList;
 
 public class SudokuGame9x9 extends AppCompatActivity {
     boolean isPaused = false;
+    Controller myCont;
     int selectedIndex;
     boolean isSelectedDark;
     Button selectedButton;
@@ -139,6 +144,16 @@ public class SudokuGame9x9 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku_game9x9);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        myCont = new Controller(this);
+        myCont.loadTest9x9();
+        setGrid(myCont.getGrid());
+
+        //Screen size
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        outputToast(Integer.toString(metrics.heightPixels));
+        outputToast(Integer.toString(metrics.widthPixels));
 
         //Initialise Screen
         timerTextView = (TextView) findViewById(R.id.timerTextView);
@@ -154,8 +169,16 @@ public class SudokuGame9x9 extends AppCompatActivity {
         //Handles the back button in material design.
         switch (item.getItemId()) {
             case android.R.id.home:
-                //TODO Are you sure? notification
-                finish();
+                new AlertDialog.Builder(this)
+                        .setTitle("Quit Game")
+                        .setMessage("Are you sure you want to quit?")
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                finish();
+                            }}).show();
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -227,14 +250,15 @@ public class SudokuGame9x9 extends AppCompatActivity {
                 public void onClick(View v) {
                     Button clickedBtn = (Button)v;
                     if (selectedButton != null){
-                        selectedButton.setBackgroundResource(R.drawable.grid_button);
+                        resetSelectedCell();
                         if (selectedButton == clickedBtn){
                             selectedButton = null;
                             return;
                         }
                     }
                     selectedButton = clickedBtn;
-                    //IS IT DARK?
+
+                    isSelectedDark = selectedButton.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.grid_button_dark).getConstantState());
                     selectedButton.setBackgroundResource(R.drawable.grid_button_selected);
 
                 }
@@ -242,17 +266,24 @@ public class SudokuGame9x9 extends AppCompatActivity {
         }
     }
 
+    public void setGrid(int[] newGrid){
+
+    }
+
+    public void setCell(int index, int value){
+
+    }
+
     private void changeCell(int newNum){
-        outputToast("CHANGE ON!");
         if (selectedButton == null){
             return;
         }
         selectedButton.setText(Integer.toString(newNum));
-        selectedButton.setBackgroundResource(R.drawable.grid_button);
+        resetSelectedCell();
         selectedButton = null;
     }
 
-    protected void outputToast(String output){
+    public void outputToast(String output){
         Toast.makeText(SudokuGame9x9.this, output, Toast.LENGTH_SHORT).show();
     }
 }

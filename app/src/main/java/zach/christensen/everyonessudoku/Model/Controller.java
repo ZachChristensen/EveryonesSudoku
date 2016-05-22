@@ -1,27 +1,33 @@
 //package christensen.sudoku;
 package zach.christensen.everyonessudoku.Model;
 
-class Controller {
+import android.app.Activity;
+
+import zach.christensen.everyonessudoku.SudokuGame9x9;
+
+public class Controller {
     private GameSudoku myGameSudoku;
-    private ViewConsole myView;
+    private SudokuGame9x9 myView;
 
-    Controller() {
-        this.myView = new ViewConsole(this);
+    public Controller(SudokuGame9x9 newView) {
+        this.myView = newView;
         this.myGameSudoku = new GameSudoku(this);
+        this.myView.outputToast("HELLO WORLD");
     }
 
-    void inputLoop(){
-        this.myGameSudoku.myDataHandler.testData2x2();
-        myView.updateDisplay();
-
-        //wait for input I guess?
+    public void loadTest9x9(){
+        this.myGameSudoku.myDataHandler.testData3x3();
     }
 
-    int[] getGrid(){
+    public void updateGrid(int[] grid){
+
+    }
+
+    public int[] getGrid(){
         return myGameSudoku.toArray();
     }
 
-    <T> void output(T output){
-        myView.print(output);
+    void output(String s){
+        this.myView.outputToast(s);
     }
 }
