@@ -30,6 +30,15 @@ public class HomeActivity extends AppCompatActivity {
                 HomeActivity.this.startActivity(myIntent);
             }
         });
+
+        Button six = (Button)findViewById(R.id.btn6x6);
+        assert six != null;
+        six.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent myIntent = new Intent(HomeActivity.this, SudokuGame6x6.class);
+                HomeActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     private void setWelcomeMsg(){

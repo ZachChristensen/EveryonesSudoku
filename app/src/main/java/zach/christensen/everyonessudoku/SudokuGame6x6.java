@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import zach.christensen.everyonessudoku.Model.Controller;
+
 import java.util.Arrays;
 
-public class SudokuGame9x9 extends SudokuGame implements InterfaceSudokuGame{
+import zach.christensen.everyonessudoku.Model.Controller;
+
+public class SudokuGame6x6 extends SudokuGame implements InterfaceSudokuGame{
     protected Integer[] GRIDBUTTONS = {
             R.id.button0,
             R.id.button1,
@@ -108,7 +110,7 @@ public class SudokuGame9x9 extends SudokuGame implements InterfaceSudokuGame{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sudoku_game9x9);
+        setContentView(R.layout.activity_sudoku_game6x6);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         myCont = new Controller(this);
 
@@ -116,10 +118,10 @@ public class SudokuGame9x9 extends SudokuGame implements InterfaceSudokuGame{
         //Initialise Screen
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         setButtons();
-        setGridButtons();
+        //setGridButtons();
 
-        myCont.loadTest9x9();
-        updateGrid(myCont.getGrid());
+        //myCont.loadTest9x9();
+        //updateGrid(myCont.getGrid());
 
         //Start Timer
         timerHandler.postDelayed(timerRunnable, 0);

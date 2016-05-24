@@ -1,20 +1,18 @@
 //package christensen.sudoku;
 package zach.christensen.everyonessudoku.Model;
 
-import android.app.Activity;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import zach.christensen.everyonessudoku.SudokuGame9x9;
+import zach.christensen.everyonessudoku.InterfaceSudokuGame;
+import zach.christensen.everyonessudoku.SudokuGame;
 
 public class Controller {
     private GameSudoku myGameSudoku;
-    private SudokuGame9x9 myView;
+    private InterfaceSudokuGame myView;
 
-    public Controller(SudokuGame9x9 newView) {
+    public Controller(InterfaceSudokuGame newView) {
         this.myView = newView;
         this.myGameSudoku = new GameSudoku(this);
     }
