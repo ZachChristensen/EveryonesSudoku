@@ -24,19 +24,18 @@ class GameSudoku implements Game, IntGets, IntSets{
         this.myHinter = new Hints(this);
     }
 
-    boolean move(int value, int columnIndex, int rowIndex){
-        //Returns true if move succeeds;
+    boolean move(int value, int index){
+        //Returns true if move succeeds
         if (value > maxValue || value < 1){
             this.myController.output("Error number too big");
             return false;
         }
-        if (this.frozenGrid[xyToIndex(rowIndex, columnIndex)]){
-            this.myController.output("Number is frozen");
+        if (this.frozenGrid[index]){
+            this.myController.output("Number is unchangeable");
             return false;
         }
-        int index = xyToIndex(rowIndex,columnIndex);
         this.myHistory.addMove(index, grid[index], value);
-        setByColumn(value, columnIndex, rowIndex);
+        setByIndex(value, index);
         this.moveCount++;
         return true;
     }
@@ -46,10 +45,12 @@ class GameSudoku implements Game, IntGets, IntSets{
             Move undo = this.myHistory.removeMove();
             this.grid[undo.index] = undo.oldNum;
             this.moveCount--;
+            myController.updateCellView(undo.index, undo.oldNum);
         }
         else {
             this.myController.output("No moves to undo.");
         }
+
     }
 
     public void setMaxValue(int maximum) {
@@ -122,6 +123,10 @@ class GameSudoku implements Game, IntGets, IntSets{
 
     public int getBySquare(int squareIndex, int positionIndex) {
         return grid[squareToIndex(squareIndex, positionIndex)];
+    }
+
+    public int getByIndex(int index) {
+        return grid[index];
     }
 
     public void setByColumn(int value, int columnIndex, int rowIndex) {

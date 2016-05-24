@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import zach.christensen.everyonessudoku.Model.Controller;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class SudokuGame9x9 extends AppCompatActivity {
     boolean isPaused = false;
@@ -22,7 +25,7 @@ public class SudokuGame9x9 extends AppCompatActivity {
     int selectedIndex;
     boolean isSelectedDark;
     Button selectedButton;
-    private static final int[] GRIDBUTTONS = {
+    private static final Integer[] GRIDBUTTONS = {
             R.id.button0,
             R.id.button1,
             R.id.button2,
@@ -145,20 +148,15 @@ public class SudokuGame9x9 extends AppCompatActivity {
         setContentView(R.layout.activity_sudoku_game9x9);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         myCont = new Controller(this);
-        myCont.loadTest9x9();
-        setGrid(myCont.getGrid());
 
-        //Screen size
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        outputToast(Integer.toString(metrics.heightPixels));
-        outputToast(Integer.toString(metrics.widthPixels));
 
         //Initialise Screen
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         setButtons();
-        setGrid();
+        setGridButtons();
+
+        myCont.loadTest9x9();
+        updateGrid(myCont.getGrid());
 
         //Start Timer
         timerHandler.postDelayed(timerRunnable, 0);
@@ -177,8 +175,6 @@ public class SudokuGame9x9 extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 finish();
                             }}).show();
-
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -198,16 +194,38 @@ public class SudokuGame9x9 extends AppCompatActivity {
         else{
             selectedButton.setBackgroundResource(R.drawable.grid_button);
         }
+        selectedIndex = -1;
     }
 
     private void setButtons(){
-
         Button btnUndo = (Button)findViewById(R.id.btnUndo);
         assert btnUndo != null;
         btnUndo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //TODO
-                SudokuGame9x9.this.finish();
+                myCont.undoMove();
+            }
+        });
+
+        Button btnRestart = (Button)findViewById(R.id.btnRestart);
+        assert btnRestart != null;
+        btnRestart.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                myCont.restartGrid();
+                updateGrid(myCont.getGrid());
+                timeSeconds = 0;
+            }
+        });
+
+        Button btnHint = (Button)findViewById(R.id.btnHint);
+        assert btnHint != null;
+        btnHint.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                if (selectedButton == null) {
+                    return;
+                }
+                outputToast(myCont.getHint(selectedIndex));
+                resetSelectedCell();
+                selectedButton = null;
             }
         });
 
@@ -242,7 +260,7 @@ public class SudokuGame9x9 extends AppCompatActivity {
         }
     }
 
-    private void setGrid(){
+    private void setGridButtons(){
         for (int b : GRIDBUTTONS){
             Button btn = (Button)findViewById(b);
             assert btn != null;
@@ -257,33 +275,52 @@ public class SudokuGame9x9 extends AppCompatActivity {
                         }
                     }
                     selectedButton = clickedBtn;
-
+                    selectedIndex = Arrays.asList(GRIDBUTTONS).indexOf(selectedButton.getId());
                     isSelectedDark = selectedButton.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.grid_button_dark).getConstantState());
                     selectedButton.setBackgroundResource(R.drawable.grid_button_selected);
-
                 }
             });
         }
     }
 
-    public void setGrid(int[] newGrid){
-
+    public void updateGrid(int[] newGrid){
+        for (int i = 0; i < newGrid.length; i++){
+            Button btn = (Button)findViewById(GRIDBUTTONS[i]);
+            assert btn != null;
+            btn.setText(newGrid[i] == 0 ? " " : Integer.toString(newGrid[i]));
+        }
     }
 
-    public void setCell(int index, int value){
-
+    public void updateCell(int index, int value){
+        Button btn = (Button)findViewById(GRIDBUTTONS[index]);
+        assert btn != null;
+        if (value == 0){
+            btn.setText("");
+        }
+        else {
+            btn.setText(Integer.toString(value));
+        }
     }
 
     private void changeCell(int newNum){
         if (selectedButton == null){
             return;
         }
-        selectedButton.setText(Integer.toString(newNum));
+
+        //update model
+        myCont.updateCellModel(selectedIndex, newNum);
+        if (myCont.isComplete()){
+            outputToast("Game Complete! Great Job.");
+        }
         resetSelectedCell();
         selectedButton = null;
     }
 
     public void outputToast(String output){
-        Toast.makeText(SudokuGame9x9.this, output, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SudokuGame9x9.this, output, Toast.LENGTH_LONG).show();
+    }
+
+    public void outputToast(Integer output){
+        Toast.makeText(SudokuGame9x9.this, Integer.toString(output), Toast.LENGTH_SHORT).show();
     }
 }
