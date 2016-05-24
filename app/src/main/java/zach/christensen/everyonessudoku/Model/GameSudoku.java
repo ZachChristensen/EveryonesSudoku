@@ -44,6 +44,8 @@ class GameSudoku implements Game, IntGets, IntSets{
         if (moveCount > 0) {
             Move undo = this.myHistory.removeMove();
             this.grid[undo.index] = undo.oldNum;
+            int[] squarePos = this.indexToSquare(undo.index);
+            this.squares[squarePos[0]][squarePos[1]] = undo.oldNum;
             this.moveCount--;
             myController.updateCellView(undo.index, undo.oldNum);
         }
