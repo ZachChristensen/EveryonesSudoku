@@ -159,7 +159,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button" />
+            android:background="@drawable/grid_button_dark" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -172,7 +172,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button"
+            android:background="@drawable/grid_button_dark"
             android:layout_below="@+id/gridLayout"
             android:layout_alignStart="@+id/gridLayout" />
 
@@ -187,7 +187,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button"
+            android:background="@drawable/grid_button_dark"
             android:layout_below="@+id/gridLayout"
             android:layout_toEndOf="@+id/button10" />
 
@@ -292,7 +292,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button" />
+            android:background="@drawable/grid_button_dark" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -305,7 +305,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button" />
+            android:background="@drawable/grid_button_dark" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -318,7 +318,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button" />
+            android:background="@drawable/grid_button_dark" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -331,7 +331,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button_dark" />
+            android:background="@drawable/grid_button" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -344,7 +344,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button_dark" />
+            android:background="@drawable/grid_button" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -357,7 +357,7 @@
             android:textSize="12dp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:background="@drawable/grid_button_dark" />
+            android:background="@drawable/grid_button" />
 
         <Button
             style="?android:attr/buttonStyleSmall"

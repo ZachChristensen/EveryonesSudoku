@@ -70,6 +70,12 @@ public class SudokuGame extends AppCompatActivity {
         timerHandler.removeCallbacks(timerRunnable);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        timerHandler.post(timerRunnable);
+    }
+
     protected void resetSelectedCell(){
         if (isSelectedDark){
             selectedButton.setBackgroundResource(R.drawable.grid_button_dark);
@@ -91,6 +97,7 @@ public class SudokuGame extends AppCompatActivity {
         myCont.updateCellModel(selectedIndex, newNum);
         if (myCont.isComplete()){
             outputToast("Game Complete! Great Job.");
+            timerHandler.removeCallbacks(timerRunnable);
         }
         resetSelectedCell();
         selectedButton = null;

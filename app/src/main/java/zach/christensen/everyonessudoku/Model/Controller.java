@@ -21,6 +21,14 @@ public class Controller {
         this.myGameSudoku.myDataHandler.testData3x3();
     }
 
+    public void loadTest6x6(){
+        this.myGameSudoku.myDataHandler.testData3x2();
+    }
+
+    public void loadTest4x4(){
+        this.myGameSudoku.myDataHandler.testData2x2();
+    }
+
     public void updateCellView(int index, int value){
         myView.updateCell(index, value);
     }

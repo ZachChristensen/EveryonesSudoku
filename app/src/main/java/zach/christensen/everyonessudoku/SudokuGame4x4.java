@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import zach.christensen.everyonessudoku.Model.Controller;
 
-public class SudokuGame6x6 extends SudokuGame implements InterfaceSudokuGame{
+public class SudokuGame4x4 extends SudokuGame implements InterfaceSudokuGame{
     protected Integer[] GRIDBUTTONS = {
             R.id.button0,
             R.id.button1,
@@ -26,43 +26,21 @@ public class SudokuGame6x6 extends SudokuGame implements InterfaceSudokuGame{
             R.id.button12,
             R.id.button13,
             R.id.button14,
-            R.id.button15,
-            R.id.button16,
-            R.id.button17,
-            R.id.button18,
-            R.id.button19,
-            R.id.button20,
-            R.id.button21,
-            R.id.button22,
-            R.id.button23,
-            R.id.button24,
-            R.id.button25,
-            R.id.button26,
-            R.id.button27,
-            R.id.button28,
-            R.id.button29,
-            R.id.button30,
-            R.id.button31,
-            R.id.button32,
-            R.id.button33,
-            R.id.button34,
-            R.id.button35
+            R.id.button15
     };
 
     protected int[] SETTERBUTTONS = {
             R.id.btn1,
             R.id.btn2,
             R.id.btn3,
-            R.id.btn4,
-            R.id.btn5,
-            R.id.btn6
+            R.id.btn4
     };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sudoku_game6x6);
+        setContentView(R.layout.activity_sudoku_game4x4);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         myCont = new Controller(this);
 
@@ -72,7 +50,7 @@ public class SudokuGame6x6 extends SudokuGame implements InterfaceSudokuGame{
         setButtons();
         setGridButtons();
 
-        myCont.loadTest6x6();
+        myCont.loadTest4x4();
         updateGrid(myCont.getGrid());
 
         //Start Timer

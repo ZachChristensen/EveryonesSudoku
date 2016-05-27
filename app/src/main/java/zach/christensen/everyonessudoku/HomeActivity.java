@@ -39,6 +39,15 @@ public class HomeActivity extends AppCompatActivity {
                 HomeActivity.this.startActivity(myIntent);
             }
         });
+
+        Button four = (Button)findViewById(R.id.btn4x4);
+        assert four != null;
+        four.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent myIntent = new Intent(HomeActivity.this, SudokuGame4x4.class);
+                HomeActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     private void setWelcomeMsg(){
