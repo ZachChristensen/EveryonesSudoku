@@ -48,6 +48,15 @@ public class HomeActivity extends AppCompatActivity {
                 HomeActivity.this.startActivity(myIntent);
             }
         });
+
+        Button extra = (Button)findViewById(R.id.btnExtras);
+        assert extra != null;
+        extra.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent myIntent = new Intent(HomeActivity.this, ExtraActivity.class);
+                HomeActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     private void setWelcomeMsg(){

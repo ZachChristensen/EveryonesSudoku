@@ -22,18 +22,26 @@
         <activity
             android:name=".SudokuGame9x9"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">>
+            android:screenOrientation="portrait">
+            >
         </activity>
         <activity
             android:name=".SudokuGame6x6"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">>
+            android:screenOrientation="portrait">
+            >
         </activity>
         <activity
             android:name=".SudokuGame4x4"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">>
+            android:screenOrientation="portrait">
+            >
         </activity>
+        <activity
+            android:name=".ExtraActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".SudokuGameReactive4x4"></activity>
     </application>
 
 </manifest>
