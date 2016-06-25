@@ -7,7 +7,7 @@ class ViewConsole implements View{
     }
 
     public void updateDisplay(){
-        int[] arr = myController.getGrid();
+        int[] arr = myController.loadFile();
         int max = (int)Math.sqrt(arr.length);
         for(int i = 0; i < arr.length; i++){
             if(i % max == 0){

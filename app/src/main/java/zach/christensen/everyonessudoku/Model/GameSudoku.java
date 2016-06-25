@@ -37,6 +37,7 @@ class GameSudoku implements Game, IntGets, IntSets{
         this.myHistory.addMove(index, grid[index], value);
         setByIndex(value, index);
         this.moveCount++;
+        updateViewMoveCount();
         return true;
     }
 
@@ -52,7 +53,11 @@ class GameSudoku implements Game, IntGets, IntSets{
         else {
             this.myController.output("No moves to undo.");
         }
+        updateViewMoveCount();
+    }
 
+    void updateViewMoveCount(){
+        this.myController.updateViewMoveCount(this.moveCount);
     }
 
     public void setMaxValue(int maximum) {
@@ -109,6 +114,7 @@ class GameSudoku implements Game, IntGets, IntSets{
     public void restart() {
         set(startingGrid);
         moveCount = 0;
+        updateViewMoveCount();
     }
 
     int[] getSquares(int squareNum) {

@@ -26,6 +26,7 @@ public class SudokuGame extends AppCompatActivity {
     boolean isPaused = false;
     //Timer Objects
     TextView timerTextView;
+    TextView txtMoves;
     int timeSeconds = 0;
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
@@ -95,7 +96,7 @@ public class SudokuGame extends AppCompatActivity {
 
         //update model
         myCont.updateCellModel(selectedIndex, newNum);
-        if (myCont.isComplete()){
+        if (myCont.isFinished()){
             outputToast("Game Complete! Great Job.");
             timerHandler.removeCallbacks(timerRunnable);
         }
@@ -109,5 +110,13 @@ public class SudokuGame extends AppCompatActivity {
 
     public void outputToast(Integer output){
         Toast.makeText(SudokuGame.this, Integer.toString(output), Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateMoveCount(int newCount) {
+        if (newCount == 1){
+            this.txtMoves.setText(Integer.toString(newCount)+ " Move");
+            return;
+        }
+        this.txtMoves.setText(Integer.toString(newCount)+ " Moves");
     }
 }

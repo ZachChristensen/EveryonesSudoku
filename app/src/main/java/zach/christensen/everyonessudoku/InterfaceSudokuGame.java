@@ -5,4 +5,5 @@ public interface InterfaceSudokuGame {
     void updateCell(int index, int value);
     void outputToast(Integer output);
     void outputToast(String output);
+    void updateMoveCount(int newCount);
 }

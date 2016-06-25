@@ -115,11 +115,12 @@ public class SudokuGame9x9 extends SudokuGame implements InterfaceSudokuGame{
 
         //Initialise Screen
         timerTextView = (TextView) findViewById(R.id.timerTextView);
+        txtMoves = (TextView) findViewById(R.id.txtMoves);
         setButtons();
         setGridButtons();
 
         myCont.loadTest9x9();
-        updateGrid(myCont.getGrid());
+        updateGrid(myCont.loadFile());
 
         //Start Timer
         timerHandler.postDelayed(timerRunnable, 0);
@@ -130,7 +131,7 @@ public class SudokuGame9x9 extends SudokuGame implements InterfaceSudokuGame{
         assert btnUndo != null;
         btnUndo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                myCont.undoMove();
+                myCont.undo();
             }
         });
 
@@ -138,8 +139,8 @@ public class SudokuGame9x9 extends SudokuGame implements InterfaceSudokuGame{
         assert btnRestart != null;
         btnRestart.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                myCont.restartGrid();
-                updateGrid(myCont.getGrid());
+                myCont.restart();
+                updateGrid(myCont.loadFile());
                 timeSeconds = 0;
             }
         });
